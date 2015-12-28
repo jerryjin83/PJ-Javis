@@ -80,7 +80,13 @@ public abstract class AbstractMongoDao<T> implements IDao<T>{
 	@Override
 	public List<T> findByPage(Map<String, String> queryParam, int start,
 			int pageSize) {
-		return null;
+		Query query = new Query();
+		query.skip(start-1);
+		query.limit(pageSize);
+		for(String field:queryParam.keySet()){
+			query.addCriteria(Criteria.where(field).is(queryParam.get(field)));
+		}
+		return getMongoTemplate().find(query, getModalClass());
 	}
 
 	public MongoTemplate getMongoTemplate() {
