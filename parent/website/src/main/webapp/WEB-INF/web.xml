@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="webportal" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<display-name>com.jerry.website</display-name>
+	<welcome-file-list>
+	
+		<welcome-file>/system/home.htm</welcome-file>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+    
+    <listener>  
+    	<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>  
+    </listener>   
+
+    <servlet>
+    	<servlet-name>ViewRendererServlet</servlet-name>
+    	<servlet-class>org.springframework.web.servlet.ViewRendererServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+    	<servlet-name>ViewRendererServlet</servlet-name>
+    	<url-pattern>/WEB-INF/servlet/view</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+        	<param-name>contextConfigLocation</param-name>
+        	<param-value>
+        		classpath:/spring/website/spring-web.xml
+        		classpath:/spring/website/spring-mongodb.xml
+        	</param-value>
+    	</init-param>
+    	 <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <url-pattern>*.htm</url-pattern>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+    
+    <error-page>
+    	<location>/pages/common/error.jsp</location>
+    </error-page>
+</web-app>
