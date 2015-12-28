@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.jerry.bean.modal.Person;
+import com.jerry.common.MD5Util;
 import com.jerry.common.exceptions.PasswordNotCorrectException;
 import com.jerry.common.exceptions.PersonNotFoundException;
 import com.jerry.dao.PersonDao;
@@ -22,7 +23,7 @@ public class LoginServiceImpl implements LoginService{
 		if(person==null){
 			throw new PersonNotFoundException("用户["+username+"]没有找到！");
 		}
-		if(!person.getPassword().equals(password)){
+		if(!person.getPassword().equals(MD5Util.MD5(password))){
 			throw new PasswordNotCorrectException("登录密码不正确!");
 		}
 		logger.debug("End of do login.");
