@@ -1,0 +1,21 @@
+.validation-error-label{
+	background-image: url("images/icon_error.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    color: #FF0000;
+    margin-left: 5px;
+    padding-left: 18px;
+	display:inline-block;
+}
+.validation-error-input{
+	border:1px solid red;
+}
+.validation-error-msg{
+	border: 1px solid #CCCCCC;
+	padding: 10px 20px 10px 10px;
+    position: fixed;
+	display:inline-block;
+	background-color:white;
+	max-width:250px;
+	min-width:0px;
+}

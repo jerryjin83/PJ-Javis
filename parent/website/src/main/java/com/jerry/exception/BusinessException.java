@@ -1,4 +1,4 @@
-package com.jerry.common;
+package com.jerry.exception;
 
 public class BusinessException extends RuntimeException{
 
@@ -20,6 +20,12 @@ public class BusinessException extends RuntimeException{
 	}
 	
 	public BusinessException(String errorCode,String message){
+		this.message = message;
+		this.errorCode = errorCode;
+	}
+	
+	public BusinessException(String errorCode,String message,Throwable t){
+		super(message,t);
 		this.message = message;
 		this.errorCode = errorCode;
 	}

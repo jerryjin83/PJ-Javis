@@ -1,6 +1,5 @@
-package com.jerry.common.exceptions;
+package com.jerry.exception;
 
-import com.jerry.common.BusinessException;
 
 public class PersonNotFoundException extends BusinessException{
 

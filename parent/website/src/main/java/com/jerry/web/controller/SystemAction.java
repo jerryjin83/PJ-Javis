@@ -1,4 +1,4 @@
-package com.jerry.controller;
+package com.jerry.web.controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -8,14 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jerry.bean.form.LoginForm;
-import com.jerry.bean.modal.Person;
-import com.jerry.common.exceptions.PasswordNotCorrectException;
-import com.jerry.common.exceptions.PersonNotFoundException;
+import com.jerry.bean.model.Person;
+import com.jerry.exception.PasswordNotCorrectException;
+import com.jerry.exception.PersonNotFoundException;
 import com.jerry.service.LoginService;
 
 @Controller
 @RequestMapping(value = "/system")
-public class SystemAction extends AbstractController {
+public class SystemAction extends AbstractAction {
 
 	private static final String HOME = "home";
 

@@ -1,6 +1,6 @@
 package com.jerry.common;
 
-import com.jerry.bean.modal.Person;
+import com.jerry.bean.model.Person;
 
 public class WebsiteSession {
 

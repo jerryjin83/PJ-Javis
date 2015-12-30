@@ -1,6 +1,6 @@
 package com.jerry.service;
 
-import com.jerry.bean.modal.Person;
+import com.jerry.bean.model.Person;
 
 
 public interface LoginService {

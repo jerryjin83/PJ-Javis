@@ -1,9 +1,9 @@
-package com.jerry.bean.modal;
+package com.jerry.bean.model;
 
 import java.util.Date;
+import java.util.List;
 
-public class Person {
-	private String id;
+public class Person extends AbstractModel {
 	private String username;
 	private String password;
 	private String fullName;
@@ -13,12 +13,7 @@ public class Person {
 	private String college;
 	private Date birthdate;
 	private String type;	// 1 admin 2 teacher 3 student
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+	private List<Course> coures;
 	public String getUsername() {
 		return username;
 	}
@@ -73,7 +68,11 @@ public class Person {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
+	public List<Course> getCoures() {
+		return coures;
+	}
+	public void setCoures(List<Course> coures) {
+		this.coures = coures;
+	}
 	
 }

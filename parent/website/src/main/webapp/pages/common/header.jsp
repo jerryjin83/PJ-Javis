@@ -12,10 +12,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title>
 <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<link href="<%=context%>/javascript/validation/style/validation.css" rel="stylesheet">
 <style>
 </style>
 <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="<%=context%>/javascript/grid.js"></script>
+<script src="<%=context%>/javascript/validation/validation.js"></script>
+<script src="<%=context%>/javascript/validation/validation-onload-parse-plugin.js"></script>
+<script src="<%=context%>/javascript/print.js"></script>
 <script type="text/javascript">
 	$.support.transition = true;
 	function selectMenu(event) {
@@ -74,13 +79,13 @@
 						<c:if test="${website.person.type=='1' }">
 							<li><a menu-url="<%=context%>/pages/studentManagement.html" href="#">学生信息管理</a></li>
 							<li><a menu-url="<%=context%>/pages/teacherManagement.html" href="#">教师信息管理</a></li>
-							<li><a menu-url="<%=context%>/courseManagement/list.htm" href="#">课程管理</a></li>
+							<li><a menu-url="<%=context%>/course/list.htm" href="#">课程管理</a></li>
 						</c:if>
 						<c:if test="${website.person.type=='2' }">
-							<li><a menu-url="<%=context%>/courseManagement/list.htm" href="#">课程管理</a></li>
+							<li><a menu-url="<%=context%>/course/list.htm" href="#">课程管理</a></li>
 						</c:if>
 						<c:if test="${website.person.type=='3' }">
-							<li><a menu-url="<%=context%>/courseManagement/myCourse.htm" href="#">我的课程</a></li>
+							<li><a menu-url="<%=context%>/person/myCourse.htm" href="#">我的课程</a></li>
 							<li><a menu-url="<%=context%>/pages/chooseCourses.html" href="#">在线选课</a></li>
 						</c:if>
 					</c:if>

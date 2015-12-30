@@ -6,7 +6,7 @@ public class MD5UtilTest {
 
 	@Test
 	public void test() {
-		System.out.println(MD5Util.MD5("123456"));
+		System.out.println(MD5Util.MD5("123456").length());
 	}
 
 }

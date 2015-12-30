@@ -11,12 +11,30 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
-public abstract class AbstractMongoDao<T> implements IDao<T>{
+import com.jerry.bean.model.IModel;
+import com.jerry.common.BeanUtil;
+import com.jerry.common.Page;
+import com.jerry.exception.BeanConvertException;
+import com.jerry.exception.PersonNotFoundException;
+import com.jerry.exception.UpdateException;
+
+public abstract class AbstractMongoDao<T extends IModel> implements IDao<T>{
 
 	@Resource
 	private MongoTemplate mongoTemplate;
 
 	protected abstract Class<T> getModalClass();
+	
+	@Override
+	public long count(Map<String, String> queryParam){
+		Query query = new Query();
+		if(queryParam!=null){
+			for(String field:queryParam.keySet()){
+				query.addCriteria(Criteria.where(field).is(queryParam.get(field)));
+			}
+		}
+		return getMongoTemplate().count(query, getModalClass());
+	}
 	
 	@Override
 	public void insert(T t) {
@@ -46,17 +64,20 @@ public abstract class AbstractMongoDao<T> implements IDao<T>{
 		Criteria criteria = new Criteria(field).is(value);
 		return getMongoTemplate().findOne(new Query(criteria), getModalClass());
 	}
+	
+	@Override
+	public List<T> findAllByKeyValue(String field,String value) {
+		Criteria criteria = new Criteria(field).is(value);
+		return getMongoTemplate().find(new Query(criteria), getModalClass());
+	}
 
 	@Override
-	public void removeOne(String id) {
-		Criteria criteria = Criteria.where("id").in(id);
-		if (criteria == null) {
-			Query query = new Query(criteria);
-			if (query != null
-					&& getMongoTemplate().findOne(query, getModalClass()) != null)
-				getMongoTemplate().remove(
-						getMongoTemplate().findOne(query, getModalClass()));
+	public void removeOne(String id){
+		T t = findOne(id);
+		if(t==null){
+			throw new PersonNotFoundException(getModalClass() + ":id="+id+",not found!");
 		}
+		getMongoTemplate().remove(t);
 
 	}
 
@@ -71,22 +92,36 @@ public abstract class AbstractMongoDao<T> implements IDao<T>{
 	}
 
 	@Override
-	public void findAndModify(String id,Map<String,Object> values) {
-		for(String key:values.keySet()){
-			getMongoTemplate().updateFirst(new Query(Criteria.where("id").is(id)), new Update().set(key, values.get(key)),getModalClass());  
+	public void update(T obj) throws UpdateException {
+		Query query = new Query(Criteria.where("id").is(obj.getId()));
+		Update update;
+		try {
+			update = BeanUtil.convertToUpdate(obj);
+		} catch (BeanConvertException e) {
+			throw new UpdateException("Update bean failed.",e);
 		}
+		getMongoTemplate().updateFirst(query, update,getModalClass());  
 	}
 
 	@Override
-	public List<T> findByPage(Map<String, String> queryParam, int start,
+	public Page<T> findByPage(Map<String, String> queryParam, int pageNumber,
 			int pageSize) {
+		Page<T> page = new Page<T>();
+		
 		Query query = new Query();
-		query.skip(start-1);
+		query.skip(pageNumber*pageSize);
 		query.limit(pageSize);
-		for(String field:queryParam.keySet()){
-			query.addCriteria(Criteria.where(field).is(queryParam.get(field)));
+		if(queryParam!=null){
+			for(String field:queryParam.keySet()){
+				query.addCriteria(Criteria.where(field).is(queryParam.get(field)));
+			}
 		}
-		return getMongoTemplate().find(query, getModalClass());
+		List<T> result = getMongoTemplate().find(query, getModalClass());
+		page.setResult(result);
+		page.setTotal(count(queryParam));
+		page.setPageNumber(pageNumber);
+		page.setPageSize(pageSize);
+		return page;
 	}
 
 	public MongoTemplate getMongoTemplate() {

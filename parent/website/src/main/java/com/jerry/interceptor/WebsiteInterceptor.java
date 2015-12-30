@@ -5,7 +5,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.context.request.WebRequestInterceptor;
 
-import com.jerry.common.BusinessException;
+import com.jerry.exception.BusinessException;
 
 public class WebsiteInterceptor implements WebRequestInterceptor {
 	

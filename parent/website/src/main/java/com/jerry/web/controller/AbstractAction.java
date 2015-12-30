@@ -1,12 +1,12 @@
-package com.jerry.controller;
+package com.jerry.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.jerry.bean.modal.Person;
+import com.jerry.bean.model.Person;
 import com.jerry.common.WebsiteSession;
 
-public abstract class AbstractController {
+public abstract class AbstractAction {
 	private static final String SESSION = "website";
 	public WebsiteSession getSession(HttpServletRequest request){
 		Object session = request.getSession().getAttribute(SESSION);
@@ -21,7 +21,7 @@ public abstract class AbstractController {
 		session.setSignin(true);
 		// init login 
 		s.setAttribute(SESSION, session);
-		
+		s.setAttribute("context",request.getContextPath());
 	}
 	
 	protected void clear(HttpServletRequest request){

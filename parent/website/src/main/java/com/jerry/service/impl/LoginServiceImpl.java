@@ -5,11 +5,11 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.jerry.bean.modal.Person;
+import com.jerry.bean.model.Person;
 import com.jerry.common.MD5Util;
-import com.jerry.common.exceptions.PasswordNotCorrectException;
-import com.jerry.common.exceptions.PersonNotFoundException;
 import com.jerry.dao.PersonDao;
+import com.jerry.exception.PasswordNotCorrectException;
+import com.jerry.exception.PersonNotFoundException;
 import com.jerry.service.LoginService;
 
 @Service("loginService")
