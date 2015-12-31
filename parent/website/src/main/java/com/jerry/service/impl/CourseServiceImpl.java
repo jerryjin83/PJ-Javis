@@ -156,4 +156,13 @@ public class CourseServiceImpl implements CourseService {
 		return page;
 	}
 
+	@Override
+	public void existed(String number) {
+
+		Course course = courseDao.findOneByKeyValue("number", number);
+		if(course==null)
+			throw new BusinessException("","该课程已经存在");
+		
+	}
+
 }

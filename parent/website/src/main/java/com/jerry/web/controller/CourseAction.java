@@ -21,6 +21,7 @@ import com.jerry.bean.model.Course;
 import com.jerry.bean.model.Person;
 import com.jerry.bean.view.CourseView;
 import com.jerry.common.Page;
+import com.jerry.exception.BusinessException;
 import com.jerry.exception.PersonNotFoundException;
 import com.jerry.service.CourseService;
 import com.jerry.service.PersonService;
@@ -54,6 +55,21 @@ public class CourseAction extends AbstractAction{
 		model.addAttribute("teacher", teacher);
 		model.addAttribute("page", page);
 		return LIST;
+	}
+	
+	@RequestMapping(value="/existed")
+	@ResponseBody
+	public ResultBean isCourseExisted(String number){
+		ResultBean rb = new ResultBean();
+		try{
+			courseService.existed(number);
+			rb.setSuccess(true);
+		}catch(BusinessException e){
+			logger.error("查询课程是否存在失败：",e);
+			rb.setMessage(e.getMessage());
+			rb.setSuccess(false);
+		}
+		return rb;
 	}
 	
 	@RequestMapping(value="/delete")

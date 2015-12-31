@@ -21,9 +21,21 @@ $(document).ready(function() {
 		});
 		grid.show();
 });
+function printPage(){
+	doPrint({
+		id:"myCourse"
+	});
+}
 </script>
+<div id="myCourse">
+<div>
+<button type="button" print-visible="false" id="add" class="btn btn-primary"
+		onclick="printPage();" style="float:right">打印</button>
+		<br/>
+</div>
 <h1>我的课程</h1>
 <div>
 	<div id="courses"></div>
+</div>
 </div>
 <jsp:include page="/pages/common/footer.jsp"></jsp:include>

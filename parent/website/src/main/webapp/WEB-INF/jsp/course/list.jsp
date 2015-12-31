@@ -115,6 +115,11 @@
 			});
 		}
 	}
+	function isExisted(value){
+		$.ajax({
+			url:''
+		});
+	}
 	function viewAllStudent(id){
 		return "<button class='btn btn-default'>查看详情</button>"
 	}

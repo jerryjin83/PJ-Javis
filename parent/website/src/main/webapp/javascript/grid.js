@@ -1,3 +1,37 @@
+/**
+ * 基于Bootstrap样式的表格
+ * 使用案例：
+ * 			window.grid = new Grid({
+ *			id:"courses",	// grid编号
+ *			url:"${context}/course/list.do",
+ *			getCriteria:function(){
+ *				return {"teacher":$("#teacher")[0].value,name:$("#name")[0].value}
+ *			},
+ *			selectMode:{mode:"single",field:"id",fieldName:""},// 选择模式，支持single, multiple 
+ *			renderTo:"courses", // 渲染到指定ID的DOM组件中，建议是DIV
+ *			page : {total:10,totalPage:1,pageNumber:1,pageSize:10,start:1,result:[{number:"XXX",name:"随便",startDate:"2015-1-1",endDate:"2016-1-1","teacher":"张三",id:"1"}]},//数据实体
+ *			selectMode:{mode:'single',field:"id",fieldName:""},
+ *			structure:[
+ *			           {field:"number",fieldName:"课程编号"},
+ *			           {field:"name",fieldName:"课程名称"},
+ *			           {field:"startDate",fieldName:"开始日期"},
+ *			           {field:"endDate",fieldName:"结束日期"},
+ *			           {field:"teacher",fieldName:"讲师"},
+ *			           {field:"count",fieldName:"已报名人数",formatter:function(count,row){
+ *			        	   var row = grid.getRow(row);
+ *			        	   return row.count+"/"+row.total;
+ *			           }},
+ *			           {field:"id",fieldName:"操作",formatter:function(id,row){
+ *			        	  return viewAllStudent(id);
+ *			           }}
+ *			           ] // 表格结构
+ *		});
+ *		grid.show();
+ *
+ *提供接口:
+ *		grid.getSelectedRows(); //获取所有已经选中的行
+ *		grid.show();			//显示表格
+ */
 var Grid = function(config){
 	
 	this.init(config);

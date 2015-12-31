@@ -31,5 +31,7 @@ public interface CourseService {
 	 */
 	public Page<CourseView> queryCourse(Map<String, Object> param,
 			int pageNumber, int pageSize, Person user);
+
+	public void existed(String number);
 	
 }

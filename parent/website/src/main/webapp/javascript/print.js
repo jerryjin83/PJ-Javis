@@ -1,3 +1,11 @@
+/**
+ * 通用打印功能
+ * 使用方法：
+ * 		doPrint({id:"我要打印的内容"});//如果不指定ID，则会打印完整页面
+ * 配合自定义DOM属性
+ * 		print-visible true|false //是否打印
+ * 		print-style  			//自定义打印样式
+ */
 var PRINT_TEMPLATE = '<!DOCTYPE html><html><head>${styles}</head><body role="document"><div class="container" role="main">${printContent}</div></body></html>';
 function doPrint(config){
   if(config==undefined || config.id==undefined){
@@ -46,7 +54,7 @@ function doPrint(config){
   doc.write(wholeHtml);
   doc.close();
   //replace the print-style to style
-  var ps = $(doc.body).query("[print-style]");
+  var ps = $(doc).find("[print-style]");
   for(var i=0;i<ps.length;i++){
      var printStyle = ps[i].getAttribute("print-style");
        ps[i].setAttribute("style",printStyle);
