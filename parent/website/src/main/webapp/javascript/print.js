@@ -46,7 +46,7 @@ function doPrint(config){
   doc.write(wholeHtml);
   doc.close();
   //replace the print-style to style
-  var ps = $(doc.body).query("[print-style]");
+  var ps = $(doc).find("[print-style]");
   for(var i=0;i<ps.length;i++){
      var printStyle = ps[i].getAttribute("print-style");
        ps[i].setAttribute("style",printStyle);
