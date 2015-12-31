@@ -1,25 +1,15 @@
 package com.jerry.bean.form;
 
-import java.util.Map;
+import com.jerry.common.Page;
 
 public class PageQueryForm {
 
-	private Map<String,String> queryParam;
-	
 	private int pageSize;
 	
 	private int pageNumber;
 
-	public Map<String, String> getQueryParam() {
-		return queryParam;
-	}
-
-	public void setQueryParam(Map<String, String> queryParam) {
-		this.queryParam = queryParam;
-	}
-
 	public int getPageSize() {
-		return pageSize;
+		return pageSize==0?Page.DEFAULT_PAGE_SIZE:pageSize;
 	}
 
 	public void setPageSize(int pageSize) {
@@ -27,7 +17,7 @@ public class PageQueryForm {
 	}
 
 	public int getPageNumber() {
-		return pageNumber;
+		return pageNumber==0?Page.DEFAULT_PAGE_NUMBER:pageNumber;
 	}
 
 	public void setPageNumber(int pageNumber) {

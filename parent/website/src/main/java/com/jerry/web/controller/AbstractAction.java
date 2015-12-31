@@ -24,6 +24,10 @@ public abstract class AbstractAction {
 		s.setAttribute("context",request.getContextPath());
 	}
 	
+	protected Person getCurrentLoginUser(HttpServletRequest request){
+		return getSession(request).getPerson();
+	}
+	
 	protected void clear(HttpServletRequest request){
 		HttpSession s = request.getSession();
 		s.removeAttribute(SESSION);

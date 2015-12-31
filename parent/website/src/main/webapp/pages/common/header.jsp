@@ -5,21 +5,24 @@
 	String context = request.getContextPath();
 %>
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
-<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title>
 <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 <link href="<%=context%>/javascript/validation/style/validation.css" rel="stylesheet">
 <style>
+input[type=text]{width:300px;}
+select{width:300px;}
 </style>
 <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="<%=context%>/javascript/grid.js"></script>
 <script src="<%=context%>/javascript/validation/validation.js"></script>
 <script src="<%=context%>/javascript/validation/validation-onload-parse-plugin.js"></script>
+<script src="<%=context%>/javascript/validation/validation-method.js"></script>
 <script src="<%=context%>/javascript/print.js"></script>
 <script type="text/javascript">
 	$.support.transition = true;
@@ -86,7 +89,7 @@
 						</c:if>
 						<c:if test="${website.person.type=='3' }">
 							<li><a menu-url="<%=context%>/person/myCourse.htm" href="#">我的课程</a></li>
-							<li><a menu-url="<%=context%>/pages/chooseCourses.html" href="#">在线选课</a></li>
+							<li><a menu-url="<%=context%>/person/pickupCourse.htm" href="#">在线选课</a></li>
 						</c:if>
 					</c:if>
 				</ul>

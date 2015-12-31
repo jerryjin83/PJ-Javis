@@ -2,10 +2,13 @@ package com.jerry.web.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,10 +41,17 @@ public class CourseAction extends AbstractAction{
 	private PersonService personService;
 
 	@RequestMapping(value="/list")
-	public String list(PageQueryForm form,Model model){
-		Page<CourseView> page = courseService.queryByPage(form.getQueryParam(), form.getPageNumber(), form.getPageSize()==0?Page.DEFAULT_PAGE_SIZE:form.getPageSize());
-		List<Person> teacher = personService.findByType("2");
-		model.addAttribute("teachers", teacher);
+	public String list(PageQueryForm form,Model model,String name,String teacher){
+		Map<String,Object> param = new HashMap<String,Object>();
+		if(StringUtils.isNotEmpty(name))
+			param.put("name", name);
+		if(StringUtils.isNotEmpty(teacher))
+			param.put("teacher.fullName", teacher);
+		Page<CourseView> page = courseService.queryByPage(param, form.getPageNumber(), form.getPageSize()==0?Page.DEFAULT_PAGE_SIZE:form.getPageSize());
+		List<Person> teachers = personService.findByType("2");
+		model.addAttribute("teachers", teachers);
+		model.addAttribute("name",name);
+		model.addAttribute("teacher", teacher);
 		model.addAttribute("page", page);
 		return LIST;
 	}

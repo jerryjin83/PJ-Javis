@@ -5,10 +5,12 @@ var Grid = function(config){
 		config:this.config,
 		show:this.show,
 		getRow:this.getRow,
+		goTo:this.goTo,
 		getSelectedRows:this.getSelectedRows,
 		_generageHeader : this.generageHeader,
 		_generateRows : this.generateRows,
-		_initEvent:this.initEvent
+		_generatePagination : this.generatePagination,
+		_initEvent:this.initEvent 
 	};
 };
 Grid.prototype.init = function(config){
@@ -18,9 +20,9 @@ Grid.prototype.show = function(){
 	var config = this.config;
 	
 	var html = "<table class='table table-hover'>{caption}{head}{body}</table>";
-	html = html.replace("{head}",this._generageHeader(config.structure));
+	html = html.replace("{head}",this._generageHeader());
 	if(config.page.result.length>0)
-		html = html.replace("{body}",this._generateRows(config.page,config.structure));
+		html = html.replace("{body}",this._generateRows());
 	else
 		html = html.replace("{body}","");
 	if(typeof config.caption!="undefined")
@@ -29,8 +31,11 @@ Grid.prototype.show = function(){
 		html = html.replace("{caption}","");
 	if(config.page.result.length==0){
 		html+="<div>无记录</div>"
+	}else{
+		html+=this._generatePagination();
 	}
 	document.getElementById(config.renderTo).innerHTML = html;
+	this._initEvent();
 };
 
 Grid.prototype.generageHeader = function(){
@@ -66,13 +71,48 @@ Grid.prototype.generateRows = function(){
 			if(typeof struct.formatter=="undefined"){ 
 				body += "<td>"+page.result[i][struct.field]+"</td>";
 			}else{
-				body +="<td>"+struct.formatter(page.result[struct.field],i)+"</td>";
+				body +="<td>"+struct.formatter(page.result[i][struct.field],i)+"</td>";
 			}
 		}
 		body+="</tr>";
 	}
 	
 	return body;
+};
+Grid.prototype.generatePagination = function(){
+	var page = this.config.page;
+	var pagination = "<nav><ul class='pagination'>";
+	var currentPage = page.pageNumber;
+	var total = page.total;
+	var totalPage = page.totalPage;
+	var pageSize = page.pageSize;
+	var start = page.start;
+	if(totalPage>1 && currentPage>1){
+		pagination+='<li><a href="javascript:void(0)" pa="pre" aria-label="Previous"> <spanaria-hidden="true">&laquo;</span></a></li>';
+	}
+	var len = totalPage-start>=(pageSize-1)?(start+pageSize-1):totalPage
+	for(var i=start;i<=len;i++){
+		pagination+='<li '+(i==currentPage?'class="active"':'')+'><a href="javascript:void(0)" pa="'+i+'" >'+i+'</a></li>';
+	}
+	if(totalPage>1 && currentPage<totalPage){
+		pagination+='<li><a href="javascript:void(0)" pa="next" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>'
+	}
+	pagination+="</ul></nav>";
+	return pagination;
+};
+
+Grid.prototype.goTo = function(pageNumber){
+	var data = {};
+	if(typeof this.config.getCriteria=="function"){
+		data = this.config.getCriteria();
+	}
+	data.pageNumber = pageNumber;
+	data.pageSize = this.config.page.pageSize;
+	var params = "";
+	for(var key in data){
+		params+=(key+"="+data[key])+"&";
+	}
+	window.location.href=this.config.url+"?" + params;
 };
 
 Grid.prototype.getRow = function(rowNumber){
@@ -88,4 +128,30 @@ Grid.prototype.getSelectedRows = function(){
 		}
 	}
 	return sr;
+};
+Grid.prototype.initEvent = function(){
+	var pageLinks = $(".pagination>li>a");
+	for(var i=0;i<pageLinks.length;i++){
+		var pa = pageLinks[i].getAttribute("pa");
+		if(pa=='pre'){
+			var _self = this;
+			pageLinks[i].onclick = function(event){
+				_self.goTo(_self.config.page.pageNumber-1);
+			}
+		}else if(pa=='next'){
+			var _self = this;
+			pageLinks[i].onclick = function(event){
+				_self.goTo(_self.config.page.pageNumber+1);
+			}
+		}else{
+			var _self = this;
+			if(parseInt(pa)==this.config.page.pageNumber){
+				continue;
+			}
+			pageLinks[i].onclick = function(event){
+				var pageNumber = event.target.getAttribute("pa");
+				_self.goTo(pageNumber);
+			}
+		}
+	}
 };

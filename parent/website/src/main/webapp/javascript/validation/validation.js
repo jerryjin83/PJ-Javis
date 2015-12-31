@@ -42,16 +42,16 @@ var Validation = function(config){
 	};
 };
 Validation.prototype._defaultRule = {
-	email:{regex:"^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$",message:"Please input a valid email"},
-	number:{regex:"^\\d+\\.*\\d*$",message:"Please input a valid number"},
-	zipcode:{regex:"",message:"Please input a valid zipcode."},
-	mobile:{regex:"",message:"Please input a valid mobile."},
-	date:{regex:"^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3}$",message:"Please input a valid date."},
-	min:{message:"The value you input must be great than {0}" },
-	max:{message:"The value you input must be less than {0}"},
-	required:{message:"This field is required"},
-	equalTo:{message:"{0} must be equal to {1}"},
-	notEqualTo:{message:"{0} must be different with {1}"},
+	email:{regex:"^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$",message:"请输入正确的邮编"},
+	number:{regex:"^\\d+\\.*\\d*$",message:"请输入数字"},
+	zipcode:{regex:"",message:"请输入正确的邮政编码"},
+	mobile:{regex:"",message:"请输入正确的手机号码"},
+	date:{regex:"^[0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3}$",message:"日期必须符合yyyy-MM-dd"},
+	min:{message:"你输入的值必须大于等于 {0}" },
+	max:{message:"你输入的值必须小于等于 {0}"},
+	required:{message:"该字段必填"},
+	equalTo:{message:"{0} 必须和 {1} 相同"},
+	notEqualTo:{message:"{0} 必须和 {1} 不同"},
 };
 Validation.prototype._defaultFieldConfig = {
 	widgetType:"dom",
@@ -421,7 +421,14 @@ Validation.prototype._showMessage =function(field,message,values){
 		f.setAttribute("old-borderColor",oldBorderColor);
 		f.style.borderColor="red";
 	}
-	// show error label
+	//data-trigger="focus"   data-toggle="popover" data-content="And here's some amazing content. It's very engaging. Right?"	// show error label
+	if(msg.trim()!=""){
+		f.setAttribute("data-trigger","focus");
+		f.setAttribute("data-toggle","popover");
+		f.setAttribute("data-content",msg);
+		$('[data-toggle="popover"]').popover();
+	}
+	/*
 	var labelId = this._generateErrorLableId(fieldId);
 	var label = this.$(labelId);
 	if(label!=undefined){
@@ -434,9 +441,9 @@ Validation.prototype._showMessage =function(field,message,values){
 		label.innerHTML = "&nbsp;";
 		f.parentNode.insertBefore(label,f.nextSibling);
 	}
+	*/
 	
-	
-	
+	/*
 	if(msg.trim()!=""){
 		var divId = this._generateErrorMsgId(fieldId);
 		var div = this.$(divId);
@@ -477,7 +484,7 @@ Validation.prototype._showMessage =function(field,message,values){
 				div.setAttribute("style","display:none");
 			}
 		};
-	}
+	}*/
 };
 Validation.prototype.clearAll = function(){
 	var self;
@@ -511,6 +518,7 @@ Validation.prototype.clear =function(field){
 		f.style.borderColor = f.getAttribute("old-borderColor");
 		f.removeAttribute("old-borderColor");
 	}
+	/*
 	var labelId = this._generateErrorLableId(fieldId);
 	var label = this.$(labelId);
 	if(label!=undefined){
@@ -522,4 +530,8 @@ Validation.prototype.clear =function(field){
 		div.style.display="none";
 		div.innerHTML = "";
 	}
+	*/
+	f.removeAttribute("data-trigger");
+	f.removeAttribute("data-toggle");
+	f.removeAttribute("data-content");
 };

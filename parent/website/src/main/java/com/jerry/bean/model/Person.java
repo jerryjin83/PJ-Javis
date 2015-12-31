@@ -12,6 +12,7 @@ public class Person extends AbstractModel {
 	private String depatment;
 	private String college;
 	private Date birthdate;
+	private float score;
 	private String type;	// 1 admin 2 teacher 3 student
 	private List<Course> coures;
 	public String getUsername() {
@@ -73,6 +74,12 @@ public class Person extends AbstractModel {
 	}
 	public void setCoures(List<Course> coures) {
 		this.coures = coures;
+	}
+	public float getScore() {
+		return score;
+	}
+	public void setScore(float score) {
+		this.score = score;
 	}
 	
 }

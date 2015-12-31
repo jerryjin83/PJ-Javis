@@ -2,8 +2,11 @@ package com.jerry.common;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -38,6 +41,16 @@ public class BeanUtil {
 		}
 		
 		return update;
+	}
+	
+	public static Query convertToQuery(Map<String,Object> queryParam){
+		Query query = new Query();
+		if(queryParam!=null){
+			for(String field:queryParam.keySet()){
+				query.addCriteria(Criteria.where(field).is(queryParam.get(field)));
+			}
+		}
+		return query;
 	}
 	
 	public static String convertToJsonString(Object obj) throws BeanConvertException{

@@ -16,8 +16,10 @@ public class CourseView {
 	private String endDate;
 	private String teacher;
 	private String teacherId;
+	private boolean isPickedup=false;
 	private int count;
 	private int total;
+	private float score;
 	public CourseView(Course course) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		this.number = course.getNumber();
@@ -32,6 +34,14 @@ public class CourseView {
 		this.total = course.getTotal();
 	}
 	
+	public boolean isPickedup() {
+		return isPickedup;
+	}
+
+	public void setPickedup(boolean isPickedup) {
+		this.isPickedup = isPickedup;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -96,6 +106,14 @@ public class CourseView {
 
 	public String toString(){
 		return BeanUtil.convertToJsonString(this);
+	}
+
+	public float getScore() {
+		return score;
+	}
+
+	public void setScore(float score) {
+		this.score = score;
 	}
 	
 }

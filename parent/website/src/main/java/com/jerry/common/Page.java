@@ -1,22 +1,18 @@
 package com.jerry.common;
 
 import java.util.List;
-import java.util.Map;
 
 public class Page<T> {
 	public static final int DEFAULT_PAGE_SIZE = 10;
-	private Map<String,String> titles;
+	public static final int DEFAULT_PAGE_NUMBER = 1;
 	private List<T> result;
 	private long total;
 	private int pageNumber;
 	private int pageSize;
 	private long totalPage;
-	
-	public Map<String, String> getTitles() {
-		return titles;
-	}
-	public void setTitles(Map<String, String> titles) {
-		this.titles = titles;
+	private long start;
+	public long getStart(){
+		return start==0?(totalPage/pageSize+1):start;
 	}
 	public List<T> getResult() {
 		return result;
@@ -32,7 +28,7 @@ public class Page<T> {
 		this.total = total;
 	}
 	public int getPageNumber() {
-		return pageNumber;
+		return pageNumber==0?DEFAULT_PAGE_NUMBER:pageNumber;
 	}
 	public void setPageNumber(int pageNumber) {
 		this.pageNumber = pageNumber;

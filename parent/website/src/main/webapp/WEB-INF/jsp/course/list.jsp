@@ -15,6 +15,10 @@
 		$('#edit')[0].onclick = function() {
 			var form = $("#updateCourse")[0];
 			var selectRow = grid.getSelectedRows()[0];
+			if(selectRow==null){
+				alert("请选择课程再编辑!");
+				return;
+			}
 			form.id.value = selectRow.id;
 			form.total.value=selectRow.total;
 			form.name.value=selectRow.name;
@@ -26,6 +30,10 @@
 		};
 		window.grid = new Grid({
 			id:"courses",
+			url:"${context}/course/list.do",
+			getCriteria:function(){
+				return {"teacher":$("#teacher")[0].value,name:$("#name")[0].value}
+			},
 			renderTo:"courses",
 			page : ${page},
 			selectMode:{mode:'single',field:"id",fieldName:""},
@@ -46,12 +54,12 @@
 		});
 		grid.show();
 	});
-	function remove(){
+	function removeCourse(){
 		var selectedRows = grid.getSelectedRows();
 		$.ajax({url:"${context}/course/delete.do",data:{id:selectedRows[0].id},success:function(result){
 			if(result.success){
 				alert("删除成功");
-				window.location.href=window.referred;
+				window.location.href="${context}/course/list.do";
 			}else{
 				alert("删除失败,原因："+result.message);
 			}
@@ -82,6 +90,7 @@
 			});
 		}
 	}
+	function validateTeacher(){}
 	function update(){
 		var form = $("#updateCourse")[0];
 		if(uv.validate()){
@@ -114,16 +123,16 @@
 
 <h1>课程管理</h1>
 <div>
-	<form class="form-inline">
+	<form class="form-inline" action="${context }/course/list.do" method="POST">
 		<div class="form-group">
 			<label for="exampleInputName2">课程名称: </label> <input type="text"
-				class="form-control" id="courseName" placeholder="请输入课程名称">
+				class="form-control" id="name" name="name" value="${name }" placeholder="请输入课程名称">
 		</div>
 		<div class="form-group">
-			<label for="exampleInputEmail2">讲师: </label> <input type="email"
-				class="form-control" id="teacher" placeholder="请输入讲师姓名">
+			<label for="exampleInputEmail2">讲师: </label> <input type="text"
+				class="form-control" id="teacher" name="teacher" value="${teacher }" placeholder="请输入讲师姓名">
 		</div>
-		<button type="button" class="btn btn-default">查询</button>
+		<button type="submit" class="btn btn-default">查询</button>
 	</form>
 </div>
 <hr />
@@ -138,20 +147,6 @@
 <br />
 <div>
 	<div id="courses"></div>
-	<nav>
-		<ul class="pagination">
-			<li><a href="#" aria-label="Previous"> <span
-					aria-hidden="true">&laquo;</span>
-			</a></li>
-			<li class="active"><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-			<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-			</a></li>
-		</ul>
-	</nav>
 </div>
 
 <!-- 新增课程 -->
@@ -168,41 +163,41 @@
 			</div>
 			<div class="modal-body">
 				<h3>新增课程</h3>
-				<form id="newCourse">
+				<form id="newCourse" >
 					<div class="row">
-						<div class="form-group col-md-8">
+						<div class="form-group col-md-11">
 							<label for="courseName">课程编号: </label> <input type="text"
-								class="form-control" id="ncNumber" name="number" nv="true" placeholder="请输入课程编号">
-						</div>
+								class="form-control" id="ncNumber" name="number"  nv="true"  nv-onKeyup="true" placeholder="请输入课程编号">
+						</div> 
 					</div>
 					<div class="row">
-						<div class="form-group col-md-8">
+						<div class="form-group col-md-11">
 							<label for="courseName">课程名称: </label> <input type="text"
-								class="form-control" id="ncName" name="name" nv="true" placeholder="请输入课程名称">
+								class="form-control" id="ncName" name="name" nv="true"  nv-onKeyup="true" placeholder="请输入课程名称">
 						</div>
 					</div>
 					<div class="row">
-						<div class="form-group col-md-8">
+						<div class="form-group col-md-11">
 							<label for="startDate">开始日期: </label> <input type="text"
-								class="form-control" id="ncStartDate"" nv="true" nv-method="date" name="startDate" placeholder="请输入开始日期">
+								class="form-control" id="ncStartDate"" nv="true" nv-method="date"  name="startDate" nv-onKeyup="true" placeholder="请输入开始日期">
 						</div>
 					</div>
 					<div class="row">
-						<div class="form-group col-md-8">
+						<div class="form-group col-md-11">
 							<label for="endDate">结束日期: </label> <input type="text"
-								class="form-control" id="ncEndDate"" nv="true" nv-method="date" name="endDate" placeholder="请输入结束日期">
+								class="form-control" id="ncEndDate"" nv="true" nv-method="date" name="endDate" nv-onKeyup="true" placeholder="请输入结束日期">
 						</div>
 					</div>
 					<div class="row">
-						<div class="form-group col-md-8">
+						<div class="form-group col-md-11">
 							<label for="total">人数: </label> <input type="text"
-								class="form-control" id="ncTotal"" nv="true"  nv-method="number" nv-max="999" nv-min="1" name="total" placeholder="请输入人数">
+								class="form-control" id="ncTotal"" nv="true"  nv-method="number" nv-max="999" nv-onKeyup="true" nv-min="1" name="total" placeholder="请输入人数">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-md-8">
-							<label for="teacher">讲师: </label> <select id="ncTeacher" class="form-control" nv="true" name="teacher">
-							<option id="-1">--请选择--</option>
+							<label for="teacher">讲师: </label> <select id="ncTeacher" class="form-control" nv-onChange="true" nv="true" nv-message="请选择讲师" nv-method="validateSelect" name="teacher">
+							<option value="-1">--请选择--</option>
 							<c:forEach items="${teachers}" var="teacher">
 							<option value="${teacher.id }">${teacher.fullName }</option>
 						 	</c:forEach>
@@ -239,42 +234,42 @@
 				<h3>编辑课程</h3>
 				<form id="updateCourse">
 					<div class="row">
-						<div class="form-group col-md-8">
+						<div class="form-group col-md-11">
 							<label for="courseName">课程编号: </label> <input type="text"
 								class="form-control" id="ucNumber" name="number" disabled  placeholder="请输入课程编号">
 								<input type="hidden" name="id"/>
 						</div>
 					</div>
 				<div class="row">
-					<div class="form-group col-md-8">
+					<div class="form-group col-md-11">
 						<label for="name">课程名称: </label> <input type="text"
 							class="form-control" id="ucName" value="" name="name" disabled 
 							placeholder="请输入课程名称">
 					</div>
 				</div>
 				<div class="row">
-					<div class="form-group col-md-8">
+					<div class="form-group col-md-11">
 						<label for="startDate">开始日期: </label> <input type="text"
-							class="form-control" id="ucStartDate" name="startDate" uv="true" uv-method="date" placeholder="请输入开始日期">
+							class="form-control" id="ucStartDate" name="startDate" uv="true" uv-method="date" uv-onKeyup="true" placeholder="请输入开始日期">
 					</div>
 				</div>
 				<div class="row">
-					<div class="form-group col-md-8">
+					<div class="form-group col-md-11">
 						<label for="endDate">结束日期: </label> <input type="text"
-							class="form-control" id="ucEndDate" name="endDate" uv="true" uv-method="date" placeholder="请输入结束日期">
+							class="form-control" id="ucEndDate" name="endDate" uv="true" uv-method="date" uv-onKeyup="true" placeholder="请输入结束日期">
 					</div>
 				</div>
 				<div class="row">
-					<div class="form-group col-md-8">
+					<div class="form-group col-md-11">
 						<label for="total">人数: </label> <input type="text"
-							class="form-control" id="ucTotal" name="total" uv="true" uv-method="number" uv-min="1" uv-max="999" placeholder="请输入人数">
+							class="form-control" id="ucTotal" name="total" uv="true" uv-method="number" uv-onKeyup="true" uv-min="1" uv-max="999" placeholder="请输入人数">
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group col-md-8">
 						<label for="teacher">讲师: </label> 
-						<select class="form-control" id="ucTeacher" name="teacher" uv="tr">
-							<option id="-1">--请选择--</option>
+						<select class="form-control" id="ucTeacher"  uv-method="validateSelect" uv-onChange="true" uv-message="请选择讲师" name="teacher" uv="true">
+							<option value="-1">--请选择--</option>
 							<c:forEach items="${teachers}"  var="teacher">
 							<option value="${teacher.id }">${teacher.fullName }</option>
 						 	</c:forEach>
@@ -311,7 +306,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				<button type="button" class="btn btn-primary" onclick="javascript:remove();">确认</button>
+				<button type="button" class="btn btn-primary" onclick="javascript:removeCourse();">确认</button>
 			</div>
 		</div>
 		<!-- /.modal-content -->

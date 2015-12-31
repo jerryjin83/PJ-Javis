@@ -22,7 +22,7 @@ public class PersonDaoImplTest extends BaseSpringTestCase{
 	
 	@Test
 	public void testFindByPage() {
-		Map<String ,String> params = new HashMap<String,String>();
+		Map<String ,Object> params = new HashMap<String,Object>();
 		params.put("username","jerry");
 		Page<Person> persons = personDaoImpl.findByPage(params, 0, 10);
 		System.out.println(persons);

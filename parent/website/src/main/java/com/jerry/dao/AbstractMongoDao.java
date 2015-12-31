@@ -26,7 +26,7 @@ public abstract class AbstractMongoDao<T extends IModel> implements IDao<T>{
 	protected abstract Class<T> getModalClass();
 	
 	@Override
-	public long count(Map<String, String> queryParam){
+	public long count(Map<String, Object> queryParam){
 		Query query = new Query();
 		if(queryParam!=null){
 			for(String field:queryParam.keySet()){
@@ -104,12 +104,12 @@ public abstract class AbstractMongoDao<T extends IModel> implements IDao<T>{
 	}
 
 	@Override
-	public Page<T> findByPage(Map<String, String> queryParam, int pageNumber,
+	public Page<T> findByPage(Map<String, Object> queryParam, int pageNumber,
 			int pageSize) {
 		Page<T> page = new Page<T>();
 		
 		Query query = new Query();
-		query.skip(pageNumber*pageSize);
+		query.skip((pageNumber-1)*pageSize);
 		query.limit(pageSize);
 		if(queryParam!=null){
 			for(String field:queryParam.keySet()){
@@ -122,6 +122,18 @@ public abstract class AbstractMongoDao<T extends IModel> implements IDao<T>{
 		page.setPageNumber(pageNumber);
 		page.setPageSize(pageSize);
 		return page;
+	}
+
+	@Override
+	public List<T> findAllBy(Map<String, Object> queryParam) {
+		Query query = BeanUtil.convertToQuery(queryParam);
+		return getMongoTemplate().find(query, getModalClass());
+	}
+
+	@Override
+	public T findOneBy(Map<String, Object> queryParam) {
+		Query query = BeanUtil.convertToQuery(queryParam);
+		return getMongoTemplate().findOne(query, getModalClass());
 	}
 
 	public MongoTemplate getMongoTemplate() {
