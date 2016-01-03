@@ -68,8 +68,8 @@ public class PersonDaoImplTest extends BaseSpringTestCase{
 	@Test
 	public void testInsert(){
 		Person person = new Person();
-		person.setUsername("zhangsan");
-		person.setFullName("张三");
+		person.setUsername("lisi");
+		person.setFullName("李四");
 		person.setGander("男");
 		person.setBirthdate(new Date());
 		person.setPassword(MD5Util.MD5("123456"));

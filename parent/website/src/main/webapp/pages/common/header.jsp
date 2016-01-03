@@ -80,8 +80,8 @@ select{width:300px;}
 				<ul class="nav navbar-nav">
 					<c:if test="${website.isSignin }">
 						<c:if test="${website.person.type=='1' }">
-							<li><a menu-url="<%=context%>/pages/studentManagement.html" href="#">学生信息管理</a></li>
-							<li><a menu-url="<%=context%>/pages/teacherManagement.html" href="#">教师信息管理</a></li>
+							<li><a menu-url="<%=context%>/management/student.htm" href="#">学生信息管理</a></li>
+							<li><a menu-url="<%=context%>/management/teacher.htm" href="#">教师信息管理</a></li>
 							<li><a menu-url="<%=context%>/course/list.htm" href="#">课程管理</a></li>
 						</c:if>
 						<c:if test="${website.person.type=='2' }">

@@ -1,9 +1,7 @@
-package com.jerry.bean.model;
+package com.jerry.bean.form;
 
-import java.util.Date;
-import java.util.List;
-
-public class Person extends AbstractModel {
+public class PersonForm {
+	private String id;
 	private String username;
 	private String password;
 	private String fullName;
@@ -11,10 +9,15 @@ public class Person extends AbstractModel {
 	private String major;
 	private String department;
 	private String college;
-	private Date birthdate;
-	private float score;
+	private String birthdate;
 	private String type;	// 1 admin 2 teacher 3 student
-	private List<Course> coures;
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getUsername() {
 		return username;
 	}
@@ -57,10 +60,10 @@ public class Person extends AbstractModel {
 	public void setCollege(String college) {
 		this.college = college;
 	}
-	public Date getBirthdate() {
+	public String getBirthdate() {
 		return birthdate;
 	}
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
 	public String getType() {
@@ -69,17 +72,4 @@ public class Person extends AbstractModel {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public List<Course> getCoures() {
-		return coures;
-	}
-	public void setCoures(List<Course> coures) {
-		this.coures = coures;
-	}
-	public float getScore() {
-		return score;
-	}
-	public void setScore(float score) {
-		this.score = score;
-	}
-	
 }
