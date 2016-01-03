@@ -1,6 +1,9 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String context = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -32,6 +35,9 @@
 	function doLogin(){
 		$("#loginForm").submit();
 	}
+	function doLogout(){
+		window.location.href="<%=context%>/system/logout.do";
+	}
 	function clearError(){
 		var error = $("#error")[0];
 		error.parentNode.removeChild(error);
@@ -42,7 +48,7 @@
 			lis[i].onclick = selectMenu;
 		}
 		$(".navbar-brand")[0].onclick = function() {
-			window.location.href = "<%=request.getContextPath()%>/pages/welcome.html";
+			window.location.href = "<%=context%>/";
 		};
 	});
 </script>
@@ -65,22 +71,30 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="navbar">
 				<ul class="nav navbar-nav">
-					<c:if test="${isSignin }">
-						<li><a menu-url="pages/chooseCourses.html" href="#">在线选课</a></li>
-						<li><a menu-url="pages/studentManagement.html" href="#">学生信息管理</a></li>
-						<li><a menu-url="pages/teacherManagement.html" href="#">教师信息管理</a></li>
-						<li><a menu-url="courseManagement/list.htm" href="#">课程管理</a></li>
+					<c:if test="${website.isSignin }">
+						<c:if test="${website.person.type=='1' }">
+							<li><a menu-url="<%=context%>/management/student.htm" href="#">学生信息管理</a></li>
+							<li><a menu-url="<%=context%>/management/teacher.htm" href="#">教师信息管理</a></li>
+							<li><a menu-url="<%=context%>/course/list.htm" href="#">课程管理</a></li>
+						</c:if>
+						<c:if test="${website.person.type=='2' }">
+							<li><a menu-url="<%=context%>/course/list.htm" href="#">课程管理</a></li>
+						</c:if>
+						<c:if test="${website.person.type=='3' }">
+							<li><a menu-url="<%=context%>/person/myCourse.htm" href="#">我的课程</a></li>
+							<li><a menu-url="<%=context%>/person/pickupCourse.htm" href="#">在线选课</a></li>
+						</c:if>
 					</c:if>
 				</ul>
 
 				<c:choose>
-					<c:when test="${isSignin }">
+					<c:when test="${website.isSignin }">
 						<p class="navbar-text navbar-right">
-							欢迎，<a href="#" class="navbar-link">XXX</a> <a href="#"
+							欢迎，<a href="#" class="navbar-link">${website.person.fullName }</a> <a href="#"
 								style="margin-left: 10px;" class="navbar-link">退出</a>
 						</p>
 					</c:when>
-					<c:when test="${isSignin==null}">
+					<c:when test="${website.isSignin==null}">
 						<form id="loginForm"
 							action="<%=request.getContextPath()%>/system/login.do"
 							method="POST" class="navbar-form navbar-right">

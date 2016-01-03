@@ -64,8 +64,8 @@ public class CourseAction extends AbstractAction{
 			courseService.delete(id);
 			rb.setSuccess(true);
 		}catch(PersonNotFoundException e){
-			logger.error("更新用户失败，没有找到该用户!",e);
-			rb.setMessage("对不起，没有找到该用户!");
+			logger.error("更新课程失败，没有找到该课程!",e);
+			rb.setMessage("对不起，没有找到该课程!");
 			rb.setSuccess(false);
 		}
 		return rb;
@@ -87,12 +87,12 @@ public class CourseAction extends AbstractAction{
 			courseService.update(course,form.getTeacher());
 			rb.setSuccess(true);
 		}catch(PersonNotFoundException e){
-			logger.error("更新用户失败，没有找到该用户!",e);
-			rb.setMessage("对不起，没有找到该用户!");
+			logger.error("更新用户失败，没有找到该讲师!",e);
+			rb.setMessage("对不起，没有找到该讲师!");
 			rb.setSuccess(false);
 		} catch (ParseException e) {
-			logger.error("更新用户失败，日期解析出错",e);
-			rb.setMessage("更新用户失败，请联系管理员!");
+			logger.error("更新课程失败，日期解析出错",e);
+			rb.setMessage("更新课程失败，起始日期格式错误!");
 			rb.setSuccess(false);
 		}
 		return rb;
@@ -113,8 +113,8 @@ public class CourseAction extends AbstractAction{
 			courseService.insert(course,form.getTeacher());
 			rb.setSuccess(true);
 		}catch(Exception e){
-			logger.error("更新用户失败，未知错误!",e);
-			rb.setMessage("新增用户失败，请联系管理员！");
+			logger.error("更新课程失败，未知错误!",e);
+			rb.setMessage("新增课程失败，请联系管理员！");
 			rb.setSuccess(false);
 		}
 		return rb;
