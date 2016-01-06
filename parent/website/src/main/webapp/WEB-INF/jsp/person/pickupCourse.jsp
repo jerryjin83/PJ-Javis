@@ -30,7 +30,7 @@ $(document).ready(function() {
 			           {field:"id",fieldName:"操作",formatter:function(id,row){
 			        	  var row =  grid.getRow(row);
 			        	  if(row.pickedup!=true){
-			        	   		return "<input type="text" id=""><button class='btn btn-default' onclick='courseId=\""+id+"\";$(\"#confirm\").modal(\"show\");'>选择</button>";
+			        	   		return "<button class='btn btn-default' onclick='courseId=\""+id+"\";$(\"#confirm\").modal(\"show\");'>选择</button>";
 			        	  }else{
 			        		  return "已选择";
 			        	  }

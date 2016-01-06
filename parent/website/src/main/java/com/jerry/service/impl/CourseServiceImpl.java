@@ -192,6 +192,9 @@ public class CourseServiceImpl implements CourseService {
 		List<Person> oldPersons = course.getStudent();
 		for(Person op:oldPersons){
 			if(op.getId().equals(studentId)){
+				if(op.getScore()!=0){
+					throw new BusinessException("","已经设置分数，不能重复设置");
+				}
 				try{
 				op.setScore(Integer.parseInt(score));
 				}catch(Exception e){

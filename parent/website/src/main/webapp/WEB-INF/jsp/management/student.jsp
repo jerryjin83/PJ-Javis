@@ -250,18 +250,18 @@
 					<div class="row">
 						<div class="form-group col-md-11">
 							<label for="username">用户名: </label> <input type="text" disabled
-								class="form-control" id="ncID" name="username"  nv="true"  nv-onKeyup="true" placeholder="请输入用户名">
+								class="form-control" id="ucID" name="username"  uv="true"  uv-onKeyup="true" placeholder="请输入用户名">
 						</div> 
 					</div>
 					<div class="row">
 						<div class="form-group col-md-11">
 							<label for="fullName">姓名: </label> <input type="text" disabled
-								class="form-control" id="ncName" name="fullName" nv="true"  nv-onKeyup="true" placeholder="请输入姓名">
+								class="form-control" id="ucName" name="fullName" uv="true"  uv-onKeyup="true" placeholder="请输入姓名">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-md-8">
-							<label for="gander">性别: </label> <select id="ncGander" class="form-control" nv-onChange="true" nv="true" nv-message="请选择性别" nv-method="validateSelect" name="gander">
+							<label for="gander">性别: </label> <select id="ucGander" class="form-control" uv-onChange="true" uv="true" uv-message="请选择性别" nv-method="validateSelect" name="gander">
 							<option value="-1">--请选择--</option>
 							<option value="男">男</option>
 							<option value="女">女</option>
@@ -271,19 +271,19 @@
 					<div class="row">
 						<div class="form-group col-md-11">
 							<label for="birthdate">生日: </label> <input type="text"
-								class="form-control" id="ucBirthdate" nv="true" nv-method="date"  name="birthdate" nv-onKeyup="true" placeholder="请输入生日">
+								class="form-control" id="ucBirthdate" uv="true" uv-method="date"  name="birthdate" uv-onKeyup="true" placeholder="请输入生日">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-md-11">
 							<label for="department">学院: </label> <input type="text"
-								class="form-control" id="ncDepartment" name="department" nv="true"  nv-onKeyup="true" placeholder="请输入所在学院">
+								class="form-control" id="ucDepartment" name="department" uv="true"  uv-onKeyup="true" placeholder="请输入所在学院">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-md-11">
 							<label for="major">专业: </label> <input type="text"
-								class="form-control" id="ncMajor" name="major" nv="true"  nv-onKeyup="true" placeholder="请输入所在专业">
+								class="form-control" id="ucMajor" name="major" uv="true"  uv-onKeyup="true" placeholder="请输入所在专业">
 						</div>
 					</div>
 				</form>
