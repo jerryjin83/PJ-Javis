@@ -62,11 +62,38 @@ public class PersonAction extends AbstractAction {
 	
 	@RequestMapping(value="/myCourse")
 	public String myCourse(PageQueryForm form, Model model,HttpServletRequest request){
+		Person user = getCurrentLoginUser(request);
+		return user.getType().equals("2")?"person/teacherCourse":"person/studentCourse";
+	}
+	
+	@RequestMapping(value="/getCourse")
+	@ResponseBody
+	public Page<CourseView> getCourse(PageQueryForm form, Model model,HttpServletRequest request){
 		Map<String,Object> map = new HashMap<String,Object>();
 		Person user = getCurrentLoginUser(request);
 		Page<CourseView> page = courseService.queryMyCourse(map, form.getPageNumber(), form.getPageSize(),user);
-		model.addAttribute("page", page);
-		return user.getType().equals("2")?"person/teacherCourse":"person/studenCourse";
+		return page;
+	}
+	
+	@RequestMapping(value="/getMyStudents")
+	@ResponseBody
+	public Page<Person> getMyStudents(HttpServletRequest request,String id){
+		Person user = getCurrentLoginUser(request);
+		return courseService.getStudents(user.getUsername(),id);
+	}
+	
+	@RequestMapping(value="/updateScore")
+	@ResponseBody
+	public ResultBean getMyStudents(HttpServletRequest request,String courseId,String score,String studentId){
+		ResultBean result = new ResultBean();
+		try{
+			courseService.updateScore(courseId, score,studentId);
+			result.setSuccess(true);
+		}catch(BusinessException e){
+			result.setSuccess(false);
+			result.setMessage(e.getMessage());
+		}
+		return result;
 	}
 	
 }

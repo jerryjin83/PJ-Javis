@@ -47,6 +47,28 @@
 			          ]
 		});
 		grid.show();
+		$('#ncBirthdate').datetimepicker({
+	        language:  'zh-CN',
+	        weekStart: 1,
+	        todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			minView: 2,
+			forceParse: 0,
+			format:'yyyy-mm-dd'
+	    });
+		$('#ucBirthdate').datetimepicker({
+	        language:  'zh-CN',
+	        weekStart: 1,
+	        todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			minView: 2,
+			forceParse: 0,
+			format:'yyyy-mm-dd'
+	    });
 	});
 	function removeCourse(){
 		var selectedRows = grid.getSelectedRows();
@@ -180,7 +202,7 @@
 					<div class="row">
 						<div class="form-group col-md-11">
 							<label for="birthdate">生日: </label> <input type="text"
-								class="form-control" id="ncBirthdate"" nv="true" nv-method="date"  name="birthdate" nv-onKeyup="true" placeholder="请输入生日">
+								class="form-control" id="ncBirthdate" nv="true" nv-method="date"  name="birthdate" nv-onKeyup="true" placeholder="请输入生日">
 						</div>
 					</div>
 					<div class="row">
@@ -249,7 +271,7 @@
 					<div class="row">
 						<div class="form-group col-md-11">
 							<label for="birthdate">生日: </label> <input type="text"
-								class="form-control" id="ncBirthdate"" nv="true" nv-method="date"  name="birthdate" nv-onKeyup="true" placeholder="请输入生日">
+								class="form-control" id="ucBirthdate" nv="true" nv-method="date"  name="birthdate" nv-onKeyup="true" placeholder="请输入生日">
 						</div>
 					</div>
 					<div class="row">

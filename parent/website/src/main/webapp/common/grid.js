@@ -44,15 +44,29 @@ var Grid = function(config){
 		_generageHeader : this.generageHeader,
 		_generateRows : this.generateRows,
 		_generatePagination : this.generatePagination,
-		_initEvent:this.initEvent 
+		_initEvent:this.initEvent,
+		_renderGrid:this.renderGrid
 	};
 };
 Grid.prototype.init = function(config){
 	this.config = config;
+	if(typeof this.config.page.pageNumber=='undefined'){
+		this.config.page.pageNumber=1;
+	}
+	if(typeof this.config.page.pageSize=='undefined'){
+		this.config.page.pageSize=10;
+	}
 };
 Grid.prototype.show = function(){
-	var config = this.config;
-	
+	if(typeof this.config.page.result!='undefined'){
+		this._renderGrid();
+	}else{
+		this.goTo(1);
+	}
+};
+
+Grid.prototype.renderGrid = function(){
+	var config = this.config; 
 	var html = "<table class='table table-hover'>{caption}{head}{body}</table>";
 	html = html.replace("{head}",this._generageHeader());
 	if(config.page.result.length>0)
@@ -102,10 +116,12 @@ Grid.prototype.generateRows = function(){
 		}
 		for(var j=0;j<structure.length;j++){
 			var struct = structure[j];
+			var value =  page.result[i][struct.field];
+			value = (value==null||value=="null")?"":value; 
 			if(typeof struct.formatter=="undefined"){ 
-				body += "<td>"+page.result[i][struct.field]+"</td>";
+				body += "<td>"+value+"</td>";
 			}else{
-				body +="<td>"+struct.formatter(page.result[i][struct.field],i)+"</td>";
+				body +="<td>"+struct.formatter(value,i)+"</td>";
 			}
 		}
 		body+="</tr>";
@@ -136,17 +152,36 @@ Grid.prototype.generatePagination = function(){
 };
 
 Grid.prototype.goTo = function(pageNumber){
-	var data = {};
-	if(typeof this.config.getCriteria=="function"){
-		data = this.config.getCriteria();
+	if(typeof this.config.page.result!='undefined'){
+		var data = {};
+		if(typeof this.config.getCriteria=="function"){
+			data = this.config.getCriteria();
+		}
+		data.pageNumber = pageNumber;
+		data.pageSize = this.config.page.pageSize;
+		var params = "";
+		for(var key in data){
+			params+=(key+"="+data[key])+"&";
+		}
+		window.location.href=this.config.url+"?" + params;
+	}else{
+		this.pageNumber = pageNumber;
+		var _self = this;
+		var data ={};
+		if(typeof this.config.getCriteria=="function"){
+			data = this.config.getCriteria();
+		}
+		data.pageSize = this.config.page.pageSize;
+		data.pageNumber = pageNumber;
+		$.ajax({
+			url:this.config.url,
+			data:data,
+			success:function(page){
+				_self.config.page.result = page.result
+				_self._renderGrid();
+			}
+		});
 	}
-	data.pageNumber = pageNumber;
-	data.pageSize = this.config.page.pageSize;
-	var params = "";
-	for(var key in data){
-		params+=(key+"="+data[key])+"&";
-	}
-	window.location.href=this.config.url+"?" + params;
 };
 
 Grid.prototype.getRow = function(rowNumber){

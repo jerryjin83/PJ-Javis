@@ -16,6 +16,9 @@ public class CourseView {
 	private String endDate;
 	private String teacher;
 	private String teacherId;
+	private String startTime;
+	private String endTime;
+	private String classroom;
 	private boolean isPickedup=false;
 	private int count;
 	private int total;
@@ -32,6 +35,9 @@ public class CourseView {
 		List<Person> students = course.getStudent();
 		this.count = students==null?0:students.size();
 		this.total = course.getTotal();
+		this.startTime = course.getStartTime();
+		this.endTime = course.getEndTime();
+		this.classroom = course.getClassroom();
 	}
 	
 	public boolean isPickedup() {
@@ -114,6 +120,30 @@ public class CourseView {
 
 	public void setScore(float score) {
 		this.score = score;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getClassroom() {
+		return classroom;
+	}
+
+	public void setClassroom(String classroom) {
+		this.classroom = classroom;
 	}
 	
 }

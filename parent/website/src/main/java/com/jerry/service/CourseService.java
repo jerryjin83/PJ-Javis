@@ -34,4 +34,8 @@ public interface CourseService {
 
 	public void existed(String number);
 	
+	public Page<Person> getStudents(String username,String courseId);
+
+	public void updateScore(String courseId, String score, String studentId);
+	
 }

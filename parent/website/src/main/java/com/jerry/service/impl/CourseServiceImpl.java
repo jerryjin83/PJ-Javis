@@ -64,6 +64,9 @@ public class CourseServiceImpl implements CourseService {
 			Person person = personDao.findOne(teacher);
 			oldCourse.setTeacher(person);
 			oldCourse.setTotal(course.getTotal());
+			oldCourse.setStartTime(course.getStartTime());
+			oldCourse.setEndTime(course.getEndTime());
+			oldCourse.setClassroom(course.getClassroom());
 			courseDao.update(oldCourse);
 		} catch (UpdateException e) {
 			throw new BusinessException("","更新课程信息失败",e);
@@ -74,7 +77,7 @@ public class CourseServiceImpl implements CourseService {
 	public Page<CourseView> queryMyCourse(Map<String, Object> queryParam,
 			int pageNumber, int pageSize, Person person) {
 		if(person.getType().equals("2")){
-			queryParam.put("teachre.username", person.getUsername());
+			queryParam.put("teacher.username", person.getUsername());
 		}
 		if(person.getType().equals("3")){
 			queryParam.put("student.username", person.getUsername());
@@ -163,6 +166,46 @@ public class CourseServiceImpl implements CourseService {
 		if(course==null)
 			throw new BusinessException("","该课程已经存在");
 		
+	}
+
+	@Override
+	public Page<Person> getStudents(String username, String courseId) {
+		Map<String,Object> params = new HashMap<String ,Object>();
+		params.put("teacher.username", username);
+		params.put("id",courseId);
+		Course course = courseDao.findOneBy(params);
+		Page<Person> result = new Page<Person>();
+		result.setResult(course.getStudent());
+		result.setPageSize(course.getStudent().size());
+		result.setPageNumber(1);
+		result.setTotal(course.getStudent().size());
+		return result;
+	}
+
+	@Override
+	public void updateScore(String courseId, String score, String studentId) {
+		Course course = courseDao.findOne(courseId);
+		if(course==null){
+			throw new BusinessException("","没有找到课程");
+		}
+		List<Person> newPersons = new ArrayList<Person>();
+		List<Person> oldPersons = course.getStudent();
+		for(Person op:oldPersons){
+			if(op.getId().equals(studentId)){
+				try{
+				op.setScore(Integer.parseInt(score));
+				}catch(Exception e){
+					throw new BusinessException("","请输入一个合法的分数",e);
+				}
+			}
+			newPersons.add(op);
+		}
+		course.setStudent(newPersons);
+		try {
+			courseDao.update(course);
+		} catch (UpdateException e) {
+			throw new BusinessException("","更新课程失败，请联系管理员",e);
+		}
 	}
 
 }

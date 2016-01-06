@@ -7,14 +7,17 @@ $(document).ready(function() {
 		document.title="我的课程";
 		window.grid = new Grid({
 			id:"courses",
-			url:"${context}/person/myCourse.do",
+			url:"${context}/person/getCourse.do",
 			renderTo:"courses",
-			page : ${page},
+			page:{pageSize:10},
 			structure:[
 			           {field:"number",fieldName:"课程编号"},
-			           {field:"name",fieldName:"课程名称"},
+			           {field:"name",fieldName:"课程名称"}, 
 			           {field:"startDate",fieldName:"开始日期"},
 			           {field:"endDate",fieldName:"结束日期"},
+			           {field:"classroom",fieldName:"上课地点"},
+			           {field:"startTime",fieldName:"开始时间"},
+			           {field:"endTime",fieldName:"结束时间"},
 			           {field:"teacher",fieldName:"讲师"},
 			           {field:"score",fieldName:"分数"}
 			           ]

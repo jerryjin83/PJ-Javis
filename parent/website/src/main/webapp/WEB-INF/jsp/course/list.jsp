@@ -26,6 +26,9 @@
 			form.startDate.value = selectRow.startDate;
 			form.endDate.value = selectRow.endDate;
 			form.teacher.value = selectRow.teacherId;
+			form.classroom.value = selectRow.classroom;
+			form.startTime.value = selectRow.startTime;
+			form.endTime.value = selectRow.endTime;
 			$('#editModal').modal('show')
 		};
 		window.grid = new Grid({
@@ -42,17 +45,106 @@
 			           {field:"name",fieldName:"课程名称"},
 			           {field:"startDate",fieldName:"开始日期"},
 			           {field:"endDate",fieldName:"结束日期"},
+			           {field:"classroom",fieldName:"上课地点"},
+			           {field:"startTime",fieldName:"开始时间"},
+			           {field:"endTime",fieldName:"结束时间"},
 			           {field:"teacher",fieldName:"讲师"},
 			           {field:"count",fieldName:"已报名人数",formatter:function(count,row){
 			        	   var row = grid.getRow(row);
 			        	   return row.count+"/"+row.total;
-			           }},
-			           {field:"id",fieldName:"操作",formatter:function(id,row){
-			        	  return viewAllStudent(id);
 			           }}
 			           ]
 		});
 		grid.show();
+		
+		$('#ucStartDate').datetimepicker({
+	        language:  'zh-CN',
+	        weekStart: 1,
+	        todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			minView: 2,
+			forceParse: 0,
+			format:'yyyy-mm-dd'
+	    });
+		$('#ucEndDate').datetimepicker({
+	        language:  'zh-CN',
+	        weekStart: 1,
+	        todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			minView: 2,
+			forceParse: 0,
+			format:'yyyy-mm-dd'
+	    });
+		$('#ncStartDate').datetimepicker({
+	        language:  'zh-CN',
+	        weekStart: 1,
+	        todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			minView: 2,
+			forceParse: 0,
+			format:'yyyy-mm-dd'
+	    });
+		$('#ncEndDate').datetimepicker({
+	        language:  'zh-CN',
+	        weekStart: 1,
+	        todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			minView: 2,
+			forceParse: 0,
+			format:'yyyy-mm-dd'
+	    });
+		$('#ncStartTime').datetimepicker({
+	        language:  'zh-CN',
+	        weekStart: 0,
+	        todayBtn:  0,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 1,
+			minView: 0,
+			forceParse: 0,
+			format:'hh:ii'
+	    });
+		$('#ncEndTime').datetimepicker({
+	        language:  'zh-CN',
+	        weekStart: 0,
+	        todayBtn:  0,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 1,
+			minView: 0,
+			forceParse: 0,
+			format:'hh:ii'
+	    });
+		$('#ucStartTime').datetimepicker({
+	        language:  'zh-CN',
+	        weekStart: 0,
+	        todayBtn:  0,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 1,
+			minView: 0,
+			forceParse: 0,
+			format:'hh:ii'
+	    });
+		$('#ucEndTime').datetimepicker({
+	        language:  'zh-CN',
+	        weekStart: 0,
+	        todayBtn:  0,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 1,
+			minView: 0,
+			forceParse: 0,
+			format:'hh:ii'
+	    });
 	});
 	function removeCourse(){
 		var selectedRows = grid.getSelectedRows();
@@ -77,6 +169,9 @@
 					total:form.total.value,
 					startDate:form.startDate.value,
 					endDate:form.endDate.value,
+					startTime:form.startTime.value,
+					endTime:form.endTime.value,
+					classroom:form.classroom.value
 				},
 				success:function(result){
 					if(result.success){
@@ -102,6 +197,9 @@
 					total:form.total.value,
 					startDate:form.startDate.value,
 					endDate:form.endDate.value,
+					startTime:form.startTime.value,
+					endTime:form.endTime.value,
+					classroom:form.classroom.value
 				},
 				success:function(result){
 					if(result.success){
@@ -171,37 +269,55 @@
 				<form id="newCourse" >
 					<div class="row">
 						<div class="form-group col-md-11">
-							<label for="courseName">课程编号: </label> <input type="text"
+							<label for="ncNumber">课程编号: </label> <input type="text"
 								class="form-control" id="ncNumber" name="number"  nv="true"  nv-onKeyup="true" placeholder="请输入课程编号">
 						</div> 
 					</div>
 					<div class="row">
 						<div class="form-group col-md-11">
-							<label for="courseName">课程名称: </label> <input type="text"
+							<label for="ncName">课程名称: </label> <input type="text"
 								class="form-control" id="ncName" name="name" nv="true"  nv-onKeyup="true" placeholder="请输入课程名称">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-md-11">
-							<label for="startDate">开始日期: </label> <input type="text"
-								class="form-control" id="ncStartDate"" nv="true" nv-method="date"  name="startDate" nv-onKeyup="true" placeholder="请输入开始日期">
+							<label for="ncStartDate">开始日期: </label> <input type="text"
+								class="form-control" id="ncStartDate" nv="true" nv-method="date"  name="startDate" nv-onKeyup="true" nv-onChange="true" placeholder="请输入开始日期">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-md-11">
-							<label for="endDate">结束日期: </label> <input type="text"
-								class="form-control" id="ncEndDate"" nv="true" nv-method="date" name="endDate" nv-onKeyup="true" placeholder="请输入结束日期">
+							<label for="ncEndDate">结束日期: </label> <input type="text"
+								class="form-control" id="ncEndDate" nv="true" nv-method="date" name="endDate" nv-onKeyup="true" nv-onChange="true" placeholder="请输入结束日期">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-md-11">
-							<label for="total">人数: </label> <input type="text"
-								class="form-control" id="ncTotal"" nv="true"  nv-method="number" nv-max="999" nv-onKeyup="true" nv-min="1" name="total" placeholder="请输入人数">
+							<label for="ncStartTime">开始时间: </label> <input type="text"
+								class="form-control" id="ncStartTime" nv="true" name="startTime" nv-onKeyup="true" nv-onChange="true" placeholder="请输入开始时间">
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-11">
+							<label for="ncEndTime">结束时间: </label> <input type="text"
+								class="form-control" id="ncEndTime" nv="true" name="endTime" nv-onKeyup="true" nv-onChange="true" placeholder="请输入结束时间">
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-11">
+							<label for="ncClassroom">上课地点: </label> <input type="text"
+								class="form-control" id="ncClassroom" nv="true" name="classroom" nv-onKeyup="true" placeholder="请输入上课地点">
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-11">
+							<label for="ncTotal">人数: </label> <input type="text"
+								class="form-control" id="ncTotal" nv="true"  nv-method="number" nv-max="999" nv-onKeyup="true" nv-min="1" name="total" placeholder="请输入人数">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-md-8">
-							<label for="teacher">讲师: </label> <select id="ncTeacher" class="form-control" nv-onChange="true" nv="true" nv-message="请选择讲师" nv-method="validateSelect" name="teacher">
+							<label for="ncTeacher">讲师: </label> <select id="ncTeacher" class="form-control" nv-onChange="true" nv="true" nv-message="请选择讲师" nv-method="validateSelect" name="teacher">
 							<option value="-1">--请选择--</option>
 							<c:forEach items="${teachers}" var="teacher">
 							<option value="${teacher.id }">${teacher.fullName }</option>
@@ -254,25 +370,42 @@
 				</div>
 				<div class="row">
 					<div class="form-group col-md-11">
-						<label for="startDate">开始日期: </label> <input type="text"
-							class="form-control" id="ucStartDate" name="startDate" uv="true" uv-method="date" uv-onKeyup="true" placeholder="请输入开始日期">
+						<label for="ucStartDate">开始日期: </label> <input type="text"
+							class="form-control" id="ucStartDate" name="startDate" uv="true" uv-method="date" uv-onKeyup="true" uv-onChange="true" placeholder="请输入开始日期">
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group col-md-11">
-						<label for="endDate">结束日期: </label> <input type="text"
-							class="form-control" id="ucEndDate" name="endDate" uv="true" uv-method="date" uv-onKeyup="true" placeholder="请输入结束日期">
+						<label for="ucEndDate">结束日期: </label> <input type="text"
+							class="form-control" id="ucEndDate" name="endDate" uv="true" uv-method="date" uv-onKeyup="true" uv-onChange="true" placeholder="请输入结束日期">
 					</div>
 				</div>
+					<div class="row">
+						<div class="form-group col-md-11">
+							<label for="ucStartTime">开始时间: </label> <input type="text" class="form-control" id="ucStartTime" nv="true" name="startTime" nv-onKeyup="true" nv-onChange="true" placeholder="请输入开始时间">
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-11">
+							<label for="ucEndTime">结束时间: </label> <input type="text"
+								class="form-control" id="ucEndTime" nv="true" name="endTime" nv-onKeyup="true" nv-onChange="true" placeholder="请输入结束时间">
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-11">
+							<label for="ucClassroom">上课地点: </label> <input type="text"
+								class="form-control" id="ucClassroom" nv="true" name="classroom" nv-onKeyup="true" placeholder="请输入上课地点">
+						</div>
+					</div>
 				<div class="row">
 					<div class="form-group col-md-11">
-						<label for="total">人数: </label> <input type="text"
+						<label for="ucTotal">人数: </label> <input type="text"
 							class="form-control" id="ucTotal" name="total" uv="true" uv-method="number" uv-onKeyup="true" uv-min="1" uv-max="999" placeholder="请输入人数">
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group col-md-8">
-						<label for="teacher">讲师: </label> 
+						<label for="ucTeacher">讲师: </label> 
 						<select class="form-control" id="ucTeacher"  uv-method="validateSelect" uv-onChange="true" uv-message="请选择讲师" name="teacher" uv="true">
 							<option value="-1">--请选择--</option>
 							<c:forEach items="${teachers}"  var="teacher">

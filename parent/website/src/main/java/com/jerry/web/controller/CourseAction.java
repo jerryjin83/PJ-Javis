@@ -100,6 +100,9 @@ public class CourseAction extends AbstractAction{
 			course.setNumber(form.getNumber());
 			course.setEndDate(sdf.parse(form.getEndDate()));
 			course.setTotal(Integer.parseInt(form.getTotal()));
+			course.setStartTime(form.getStartTime());
+			course.setEndTime(form.getEndTime());
+			course.setClassroom(form.getClassroom());
 			courseService.update(course,form.getTeacher());
 			rb.setSuccess(true);
 		}catch(PersonNotFoundException e){
@@ -126,6 +129,9 @@ public class CourseAction extends AbstractAction{
 			course.setNumber(form.getNumber());
 			course.setEndDate(sdf.parse(form.getEndDate()));
 			course.setTotal(Integer.parseInt(form.getTotal()));
+			course.setStartTime(form.getStartTime());
+			course.setEndTime(form.getEndTime());
+			course.setClassroom(form.getClassroom());
 			courseService.insert(course,form.getTeacher());
 			rb.setSuccess(true);
 		}catch(Exception e){

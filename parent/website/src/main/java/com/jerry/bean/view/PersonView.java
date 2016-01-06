@@ -21,7 +21,9 @@ public class PersonView {
 		this.gander = person.getGander();
 		this.major = person.getMajor();
 		this.department = person.getDepartment();
-		this.birthdate = sdf.format(person.getBirthdate());
+		if(person.getBirthdate()!=null){
+			this.birthdate = sdf.format(person.getBirthdate());
+		}
 	}
 
 	public String getId() {

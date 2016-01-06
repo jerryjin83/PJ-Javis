@@ -8,6 +8,9 @@ public class Course extends AbstractModel{
 	private String name;
 	private Date startDate;
 	private Date endDate;
+	private String startTime;
+	private String endTime;
+	private String classroom;
 	private Person teacher;
 	private List<Person> student;
 	private int total;
@@ -52,6 +55,24 @@ public class Course extends AbstractModel{
 	}
 	public void setTotal(int total) {
 		this.total = total;
+	}
+	public String getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+	public String getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+	public String getClassroom() {
+		return classroom;
+	}
+	public void setClassroom(String classroom) {
+		this.classroom = classroom;
 	}
 	
 }

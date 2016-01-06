@@ -20,6 +20,9 @@ $(document).ready(function() {
 			           {field:"startDate",fieldName:"开始日期"},
 			           {field:"endDate",fieldName:"结束日期"},
 			           {field:"teacher",fieldName:"讲师"},
+			           {field:"classroom",fieldName:"上课地点"},
+			           {field:"startTime",fieldName:"开始时间"},
+			           {field:"endTime",fieldName:"结束时间"},
 			           {field:"count",fieldName:"已报名人数",formatter:function(count,row){
 			        	   var row = grid.getRow(row);
 			        	   return count+"/"+row.total;
@@ -27,7 +30,7 @@ $(document).ready(function() {
 			           {field:"id",fieldName:"操作",formatter:function(id,row){
 			        	  var row =  grid.getRow(row);
 			        	  if(row.pickedup!=true){
-			        	   		return "<button class='btn btn-default' onclick='courseId=\""+id+"\";$(\"#confirm\").modal(\"show\");'>选择</button>";
+			        	   		return "<input type="text" id=""><button class='btn btn-default' onclick='courseId=\""+id+"\";$(\"#confirm\").modal(\"show\");'>选择</button>";
 			        	  }else{
 			        		  return "已选择";
 			        	  }
