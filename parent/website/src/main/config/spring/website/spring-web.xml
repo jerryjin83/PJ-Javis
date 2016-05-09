@@ -42,6 +42,6 @@
 		</property>
 	</bean>
 	<mvc:interceptors>
-		 <bean class="com.jerry.interceptor.WebsiteInterceptor" />  
+		 <bean class="com.jerry.jandj.controller.interceptor.WebsiteInterceptor" />  
 	</mvc:interceptors>
 </beans>

@@ -1,4 +1,4 @@
-package com.jerry.web.controller;
+package com.jerry.jandj.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,17 +15,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.jerry.bean.form.CourseForm;
-import com.jerry.bean.form.PageQueryForm;
 import com.jerry.bean.model.Course;
 import com.jerry.bean.model.Person;
 import com.jerry.bean.view.CourseView;
 import com.jerry.common.Page;
 import com.jerry.exception.BusinessException;
 import com.jerry.exception.PersonNotFoundException;
+import com.jerry.jandj.controller.bean.ResultBean;
+import com.jerry.jandj.controller.form.CourseForm;
+import com.jerry.jandj.controller.form.PageQueryForm;
 import com.jerry.service.CourseService;
 import com.jerry.service.PersonService;
-import com.jerry.web.controller.bean.ResultBean;
 
 @Controller
 @RequestMapping("/course")

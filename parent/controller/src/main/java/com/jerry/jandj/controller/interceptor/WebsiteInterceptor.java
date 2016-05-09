@@ -1,4 +1,4 @@
-package com.jerry.interceptor;
+package com.jerry.jandj.controller.interceptor;
 
 import org.apache.log4j.Logger;
 import org.springframework.ui.ModelMap;

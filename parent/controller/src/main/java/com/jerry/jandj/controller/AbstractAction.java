@@ -1,10 +1,10 @@
-package com.jerry.web.controller;
+package com.jerry.jandj.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.jerry.bean.model.Person;
-import com.jerry.web.controller.bean.WebsiteSession;
+import com.jerry.jandj.controller.bean.WebsiteSession;
 
 public abstract class AbstractAction {
 	private static final String SESSION = "website";

@@ -1,4 +1,4 @@
-package com.jerry.web.controller;
+package com.jerry.jandj.controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -7,10 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.jerry.bean.form.LoginForm;
 import com.jerry.bean.model.Person;
 import com.jerry.exception.PasswordNotCorrectException;
 import com.jerry.exception.PersonNotFoundException;
+import com.jerry.jandj.controller.form.LoginForm;
 import com.jerry.service.LoginService;
 
 @Controller

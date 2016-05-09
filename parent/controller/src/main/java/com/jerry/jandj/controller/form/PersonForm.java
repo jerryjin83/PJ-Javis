@@ -1,4 +1,4 @@
-package com.jerry.bean.form;
+package com.jerry.jandj.controller.form;
 
 public class PersonForm {
 	private String id;

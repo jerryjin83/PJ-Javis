@@ -1,4 +1,4 @@
-package com.jerry.web.controller.bean;
+package com.jerry.jandj.controller.bean;
 
 public class ResultBean {
 

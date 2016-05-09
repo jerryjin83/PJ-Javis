@@ -1,4 +1,4 @@
-package com.jerry.bean.form;
+package com.jerry.jandj.controller.form;
 
 import com.jerry.common.Page;
 
