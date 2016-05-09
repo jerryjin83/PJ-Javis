@@ -1,6 +1,7 @@
-package com.jerry.common;
+package com.jerry.web.controller.bean;
 
 import com.jerry.bean.model.Person;
+
 
 public class WebsiteSession {
 

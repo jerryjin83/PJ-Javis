@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.jerry</groupId>
+	<groupId>com.jerry.jandj</groupId>
 	<artifactId>parent</artifactId>
 	<version>0.1</version>
 	<packaging>pom</packaging>
@@ -9,10 +9,16 @@
 	<description>parent-project</description>
 
 	<modules>
+		<module>/common-utilities</module>
+		<module>/dao</module>
+		<module>/service</module>
+		<module>/controller</module>
 		<module>/website</module>
 	</modules>
 
 	<properties>
+		<project.version>0.1</project.version>
+	
 		<spring.version>4.2.4.RELEASE</spring.version>
 		<spring.mongodb.version>1.8.2.RELEASE</spring.mongodb.version>
 		<slf4j.version>1.7.7</slf4j.version>
@@ -27,6 +33,30 @@
 
 	<dependencyManagement>
 		<dependencies>
+			
+			<dependency>
+				<groupId>com.jerry.jandj</groupId>
+				<artifactId>common-utilities</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.jerry.jandj</groupId>
+				<artifactId>dao</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.jerry.jandj</groupId>
+				<artifactId>service</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.jerry.jandj</groupId>
+				<artifactId>controller</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>junit</groupId>

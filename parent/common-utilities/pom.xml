@@ -7,24 +7,13 @@
 		<version>0.1</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>website</artifactId>
-	<packaging>war</packaging>
-	<name>com.jerry.jandj.website</name>
-	<description>JandJ Website</description>
+	<artifactId>common-utilities</artifactId>
+	<packaging>jar</packaging>
+	<name>com.jerry.jandj.common</name>
+	<description>JandJ Common Utilities</description>
 
 
 	<dependencies>
-		
-		
-		<dependency>
-			<groupId>com.jerry.jandj</groupId>
-			<artifactId>controller</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.jerry.jandj</groupId>
-			<artifactId>common-utilities</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>

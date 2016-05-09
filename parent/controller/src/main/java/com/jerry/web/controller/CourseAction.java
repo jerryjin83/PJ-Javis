@@ -25,7 +25,7 @@ import com.jerry.exception.BusinessException;
 import com.jerry.exception.PersonNotFoundException;
 import com.jerry.service.CourseService;
 import com.jerry.service.PersonService;
-import com.jerry.web.bean.ResultBean;
+import com.jerry.web.controller.bean.ResultBean;
 
 @Controller
 @RequestMapping("/course")

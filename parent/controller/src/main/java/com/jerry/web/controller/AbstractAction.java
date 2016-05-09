@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.jerry.bean.model.Person;
-import com.jerry.common.WebsiteSession;
+import com.jerry.web.controller.bean.WebsiteSession;
 
 public abstract class AbstractAction {
 	private static final String SESSION = "website";
